@@ -194,6 +194,64 @@ app.get('/', async (req, res) => {
     res.send("|")
 })
 
+app.get('/products/filterOptions', async (req, res) => {
+    try {
+        const [brandNames, categorys] = await Promise.all([Product.distinct("brandName"), Product.distinct("category")])
+
+        res.status(200).json({
+            brandNames,
+            categorys
+        })
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500)
+    }
+})
+
+app.get('/products', async (req, res) => {
+    try {
+        const { search, page = 1, category, sort, brand } = req.query;
+
+        let query = Product.find({})
+
+        if (search) {
+            query = query.find({ productName: { $regex: search, $options: "i" } })
+        }
+
+        if (sort) {
+            console.log(sort);
+            const newSort = sort.split(",").join(" ")
+            query = query.sort(newSort)
+        }
+
+        if (category) {
+            query = query.find({ category })
+        }
+
+        if (brand) {
+            query = query.find({ brandName: brand })
+        }
+
+
+        const estProducts = await query.clone().countDocuments()
+
+        query = query.skip((page - 1) * 12).limit(12)
+
+        const result = await query.limit(12).select("-__v")
+
+        res.send({
+            totalDocCount: estProducts,
+            data: result
+        })
+
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+})
+
 app.listen(port, () => {
     console.log("running at", port);
 })

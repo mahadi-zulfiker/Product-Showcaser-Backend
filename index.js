@@ -187,6 +187,13 @@ const data = [
 
 mongoose.connect(process.env.URI).then(() => console.log("Connected to DB!"))
 
+
+app.get('/', async (req, res) => {
+    await Product.insertMany(data).catch(err => console.log(err))
+    // const result = await Product.distinct("brandName")
+    res.send("|")
+})
+
 app.listen(port, () => {
     console.log("running at", port);
 })

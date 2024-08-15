@@ -210,47 +210,47 @@ app.get('/products/filterOptions', async (req, res) => {
 
 app.get('/products', async (req, res) => {
     try {
-        const { search, page = 1, category, sort, brand } = req.query;
+        const { search, page = 1, category, sort, brand, priceRange } = req.query;
 
         let query = Product.find({})
 
         if (search) {
             query = query.find({ productName: { $regex: search, $options: "i" } })
         }
-
         if (sort) {
             console.log(sort);
             const newSort = sort.split(",").join(" ")
             query = query.sort(newSort)
         }
-
         if (category) {
             query = query.find({ category })
         }
-
         if (brand) {
             query = query.find({ brandName: brand })
         }
-
+        if (priceRange) {
+            const range = priceRange.split(",")
+            query = query.find({
+                price: {
+                    $gt: range[0],
+                    $lt: range[1]
+                }
+            })
+        }
 
         const estProducts = await query.clone().countDocuments()
 
         query = query.skip((page - 1) * 12).limit(12)
-
         const result = await query.limit(12).select("-__v")
-
         res.send({
             totalDocCount: estProducts,
             data: result
         })
-
-
     } catch (error) {
-
         console.log(error);
-
     }
 })
+
 
 app.listen(port, () => {
     console.log("running at", port);

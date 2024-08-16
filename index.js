@@ -9,8 +9,8 @@ const Product = require('./productModel')
 const corsOptions = {
     origin: [
         'http://localhost:5173',
-        '',
-        ''
+        'products-showcaser-platform.web.app',
+        'products-showcaser-platform.firebaseapp.com'
     ],
     credentials: true,
     optionSuccessStatus: 200,

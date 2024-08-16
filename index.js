@@ -10,6 +10,9 @@ const Product = require('./productModel')
 app.use(cors())
 app.use(express.json())
 
+//db
+mongoose.connect(process.env.URI).then(() => console.log("Connected to DB!"))
+
 
 const data = [
     {
@@ -185,8 +188,6 @@ const data = [
 ];
 
 
-
-mongoose.connect(process.env.URI).then(() => console.log("Connected to DB!"))
 
 
 app.get('/', async (req, res) => {

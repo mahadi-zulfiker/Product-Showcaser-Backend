@@ -4,7 +4,7 @@ Live Link: https://products-showcaser-platform.web.app
 
 Front-end Link: https://github.com/mahadi-zulfiker/Products-Showcaser-Frontend
 
-Your product showcaser website is a dynamic platform designed to display a wide range of products with advanced filtering, searching, sorting, and pagination features.
+product showcaser website is a dynamic platform designed to display a wide range of products with advanced filtering, searching, sorting, and pagination features.
 Users can easily explore products based on categories, brands, and price ranges, making it convenient to find exactly what they’re looking for. The site is fully responsive, ensuring a seamless experience on both desktop and mobile devices.
 Whether you’re showcasing your latest products or helping users discover new items, this website provides an efficient and visually appealing interface for all your product display needs.
 

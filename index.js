@@ -6,18 +6,9 @@ const port = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 const Product = require('./productModel')
 
-const corsOptions = {
-    origin: [
-        'http://localhost:5173',
-        'products-showcaser-platform.web.app',
-        'products-showcaser-platform.firebaseapp.com'
-    ],
-    credentials: true,
-    optionSuccessStatus: 200,
-}
-
-app.use(cors(corsOptions));
-app.use(express.json());
+// middlewires
+app.use(cors())
+app.use(express.json())
 
 //db
 mongoose.connect(process.env.URI).then(() => console.log("Connected to DB!"))

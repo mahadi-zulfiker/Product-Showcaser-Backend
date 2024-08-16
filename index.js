@@ -182,7 +182,8 @@ const data = [
         "ratings": 4.6,
         "createdAt": "2024-06-29T09:10:00Z"
     }
-]
+];
+
 
 
 mongoose.connect(process.env.URI).then(() => console.log("Connected to DB!"))

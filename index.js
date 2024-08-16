@@ -6,9 +6,18 @@ const port = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 const Product = require('./productModel')
 
-// middlewires
-app.use(cors())
-app.use(express.json())
+const corsOptions = {
+    origin: [
+        'http://localhost:5173',
+        '',
+        ''
+    ],
+    credentials: true,
+    optionSuccessStatus: 200,
+}
+
+app.use(cors(corsOptions));
+app.use(express.json());
 
 //db
 mongoose.connect(process.env.URI).then(() => console.log("Connected to DB!"))
